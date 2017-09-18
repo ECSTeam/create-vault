@@ -17,5 +17,5 @@ jobs:
     file: create-vault/ci/tasks/create-vault-test.yml
     params:
       BOSH_DIRECTOR: {{bosh-director}}
-      BOSH_CA: ((bosh/bosh-ca))
-      BOSH_ADMIN_PASSWORD: ((bosh/admin-password))
+      BOSH_CA: ((bosh.bosh-ca))
+      BOSH_ADMIN_PASSWORD: ((bosh.admin-password))
