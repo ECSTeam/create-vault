@@ -1,11 +1,13 @@
 #!/bin/bash
 ##################################################
 #
-#   Performs a Vault BOSH deployment.
+#   Performs a Vault BOSH deployment. This scripts expects
+#   the bosh director is targeted.
 #
 #   Arguments:
 #     Vault FQDN - the fully qualified Vault domain name.
 #     
+##################################################
 set -e 
 set -x 
 

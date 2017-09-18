@@ -1,0 +1,21 @@
+resources:
+- name: create-vault
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/ECSTeam/create-vault
+    username: ((github/git-srv-user))
+    password: ((github/git-srv-password))
+
+jobs:
+- name: test-create-vault
+  plan:
+  - aggregate:
+    - get: create-vault
+      trigger: false
+  - task: create
+    file: create-vault/ci/tasks/create-vault-test.yml
+    params:
+      BOSH_DIRECTOR: {{bosh-director}}
+      BOSH_CA: ((bosh/bosh-ca))
+      BOSH_ADMIN_PASSWORD: ((bosh/admin-password))
