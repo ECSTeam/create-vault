@@ -31,7 +31,7 @@ mkdir -p $GENERATED_DIR
 bosh2 ur $VAULT_RELEASE
 bosh2 us $STEMCELL
 # Deploy vault
-bosh2 -n -d concourse-vault deploy vault/vault_manifest_template.yml \
+bosh2 -n -d concourse-vault deploy vault_manifest_template.yml \
   --vars-store=$GENERATED_DIR/vars.yml \
   -v internal_ip=$VAULT_FQDN
 
