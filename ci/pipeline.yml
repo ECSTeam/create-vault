@@ -19,3 +19,10 @@ jobs:
       BOSH_DIRECTOR: {{bosh-director}}
       BOSH_CA: ((bosh-ca))
       BOSH_ADMIN_PASSWORD: ((admin-password))
+  - ensure:
+    task: delete-vault-deployment
+    file: create-vault/ci/tasks/delete-vault-deployment.yml
+    params:
+      BOSH_DIRECTOR: {{bosh-director}}
+      BOSH_CA: ((bosh-ca))
+      BOSH_ADMIN_PASSWORD: ((admin-password))    
