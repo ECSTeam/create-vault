@@ -24,7 +24,7 @@ sed -e ':a' -e 'N' -e '$!ba' -e 's/D\nC/D C/g' topfixed.pem > finalboshca.pem
 
 bosh2 alias-env $BOSH_ENVIRONMENT -e $BOSH_DIRECTOR --ca-cert finalboshca.pem
    
-cd create-Vault
+cd create-vault
 
 ./create-vault 172.28.98.51
 
