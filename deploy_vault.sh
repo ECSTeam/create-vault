@@ -47,7 +47,7 @@ export VAULT_SKIP_VERIFY=true
 # "-check" Don't actually initialize, just check if Vault is
 # already initialized. 
 set +e
-vault init -check -tls-skip-verify
+vault init -check 
 VAULT_INITIALIZED=$?
 set -e
 
@@ -56,7 +56,7 @@ if [[ $VAULT_INITIALIZED == 0 ]]; then
   exit 0
 elif [[ $VAULT_INITIALIZED == 2 ]]; then
   echo "Initializing vault"
-  vault init -tls-skip-verify > $VAULT_KEYS
+  vault init  > $VAULT_KEYS
 
   # unseal vault. This requires unsealing with 3 keys.
   NUM_KEYS_READ=0
