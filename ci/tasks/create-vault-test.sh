@@ -26,6 +26,6 @@ bosh2 alias-env $BOSH_ENVIRONMENT -e $BOSH_DIRECTOR --ca-cert finalboshca.pem
    
 cd create-vault
 
-./create-vault 172.28.98.51
+./create-vault.sh 172.28.98.51
 
 vault list 
