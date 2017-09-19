@@ -16,4 +16,4 @@ sed -e ':a' -e 'N' -e '$!ba' -e 's/D\nC/D C/g' topfixed.pem > finalboshca.pem
 
 bosh2 alias-env $BOSH_ENVIRONMENT -e $BOSH_DIRECTOR --ca-cert finalboshca.pem
 
-bosh2 delete-deployment -d concourse-vault
+bosh2 -n delete-deployment -d concourse-vault
