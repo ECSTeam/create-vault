@@ -31,4 +31,5 @@ cd create-vault
 
 ./deploy_vault.sh 172.28.98.51
 
+export VAULT_ADDR="https://172.28.98.51:8200"
 vault mounts 
