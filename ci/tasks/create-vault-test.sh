@@ -18,7 +18,7 @@ export BOSH_ENVIRONMENT="concourse-director"
 export VAULT_SKIP_VERIFY=true
 
 # The cert comes in as a string. Need to convert it back to a proper PEM format
-echo $BOSH_CA > boshca.
+echo $BOSH_CA > boshca.pem
 # replace all spaces with a newline
 tr ' ' '\n' < boshca.pem > newline.pem
 # there are two replacements from above that need to be reverted. The BEGIN and END lines.
