@@ -2,7 +2,10 @@
 ##################################################
 #
 #   Performs a Vault BOSH deployment. This scripts expects
-#   the bosh director is targeted.
+#   the bosh director is targeted. A "generated" 
+#   directory is created under the current directory
+#   that houses files generated during the deployment
+#   and the keys generated during the vault initialization.
 #
 #   Arguments:
 #     Vault FQDN - the fully qualified Vault domain name.
@@ -25,10 +28,10 @@ VAULT_KEYS=$GENERATED_DIR/vault_keys
 mkdir -p $GENERATED_DIR
 
 # Uploaded the release and stemcell to BOSH
-bosh ur $VAULT_RELEASE
-bosh us $STEMCELL
+bosh2 ur $VAULT_RELEASE
+bosh2 us $STEMCELL
 # Deploy vault
-bosh -n -d concourse-vault deploy vault/vault_manifest_template.yml \
+bosh2 -n -d concourse-vault deploy vault/vault_manifest_template.yml \
   --vars-store=$GENERATED_DIR/vars.yml \
   -v internal_ip=$VAULT_FQDN
 
