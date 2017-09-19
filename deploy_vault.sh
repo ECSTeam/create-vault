@@ -39,10 +39,13 @@ bosh2 -n -d concourse-vault deploy vault_manifest_template.yml \
 # vault cli
 export VAULT_ADDR="https://$VAULT_FQDN:8200"
 
+# The vault cert will be self signed. Tell vault to 
+# skip verification.
+export VAULT_SKIP_VERIFY=true
+
 # If vault has not been initialized, initial it.
 # "-check" Don't actually initialize, just check if Vault is
 # already initialized. 
-
 set +e
 vault init -check -tls-skip-verify
 VAULT_INITIALIZED=$?
