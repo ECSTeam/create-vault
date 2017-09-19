@@ -18,7 +18,7 @@ export BOSH_ENVIRONMENT="concourse-director"
 
 # The cert comes in as a string. Need to convert it back to a proper PEM format
 echo $BOSH_CA > boshca.pem
-tr ' ' '\n' boshca.pem > newline.pem
+tr ' ' '\n' < boshca.pem > newline.pem
 sed -e ':a' -e 'N' -e '$!ba' -e 's/N\nC/N C/g' newline.pem > topfixed.pem
 sed -e ':a' -e 'N' -e '$!ba' -e 's/D\nC/D C/g' topfixed.pem > finalboshca.pem
 
