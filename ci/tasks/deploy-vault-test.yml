@@ -10,5 +10,5 @@ inputs:
   - name: create-vault
 
 run:
-  path: create-vault/ci/tasks/create-vault-test.sh
+  path: create-vault/ci/tasks/deploy-vault-test.sh
   

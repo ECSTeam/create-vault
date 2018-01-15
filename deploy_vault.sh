@@ -1,38 +1,64 @@
 #!/bin/bash
 ##################################################
 #
-#   Performs a Vault BOSH deployment. This scripts expects
+#   Performs a Vault BOSH deployment. This script expects
 #   the bosh director is targeted. A "generated" 
 #   directory is created under the current directory
 #   that houses files generated during the deployment
 #   and the keys generated during the vault initialization.
 #
 #   Arguments:
-#     Vault FQDN - the fully qualified Vault domain name.
+#     -v <Vault FQDN> - the fully qualified Vault domain name.
+#     -d <directory>  - Directory that will hold the generated
+#                       deployment archives.
 #     
 ##################################################
 set -e 
 set -x 
 
+function usage() {
+cat <<EOF
+USAGE:
+   deploy_vault.sh -v <Vault FQDN> -d <deployment archives directory>
+EOF
+}
+
 # Fully Qualified Domain Name of Vault.
-VAULT_FQDN=$1
-# Directory that houses the generated files.
-GENERATED_DIR=./generated
+VAULT_FQDN=""
+# Directory that houses files related to the given deployment
+DEPLOYMENT_DIR=""
+
+while getopts "v:d:" opt; do
+    case "$opt" in
+    v)
+        VAULT_FQDN=$OPTARG
+        ;;
+    d)
+        DEPLOYMENT_DIR=$OPTARG
+        ;;
+    *)
+        echo "Unknown argument - $opt"
+        usage
+        exit 1
+        ;;    
+    esac
+done
+
 # Release and stemcell to deploy.
 VAULT_RELEASE=https://bosh.io/d/github.com/cloudfoundry-community/vault-boshrelease
 STEMCELL=https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent
 
-VAULT_KEYS=$GENERATED_DIR/vault_keys
+VAULT_KEYS=$DEPLOYMENT_DIR/vault_keys
 
-# Create the directory to house the generated files.
-mkdir -p $GENERATED_DIR
+# Create the directory to house the deployment files.
+mkdir -p $DEPLOYMENT_DIR
 
 # Uploaded the release and stemcell to BOSH
 bosh2 ur $VAULT_RELEASE
 bosh2 us $STEMCELL
 # Deploy vault
 bosh2 -n -d concourse-vault deploy vault_manifest_template.yml \
-  --vars-store=$GENERATED_DIR/vars.yml \
+  --vars-store=$DEPLOYMENT_DIR/vars.yml \
   -v internal_ip=$VAULT_FQDN
 
 # Set the vault address environment variable. This is used by the 
